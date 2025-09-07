@@ -33,16 +33,16 @@ export default function QRGenerator() {
 
   return (
     <div className="rounded-lg border border-foreground/15 bg-background p-4 shadow-sm">
-      <h3 className="mb-3 text-lg font-medium">QR Generator</h3>
+      <h3 className="mb-3 text-lg font-medium">Trình tạo mã QR</h3>
       <div className="mb-3">
-        <label className="block text-sm mb-1">Type</label>
+        <label className="block text-sm mb-1">Loại</label>
         <select
           className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={type}
           onChange={(e) => setType(e.target.value as QRType)}
         >
           <option value="URL">URL</option>
-          <option value="TEXT">Text</option>
+          <option value="TEXT">Văn bản</option>
           <option value="WIFI">WiFi</option>
         </select>
       </div>
@@ -62,7 +62,7 @@ export default function QRGenerator() {
         <div className="mb-3">
           <textarea
             className="w-full min-h-28 rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Some text"
+            placeholder="Nội dung văn bản"
             value={payload}
             onChange={(e) => setPayload(e.target.value)}
           />
@@ -73,13 +73,13 @@ export default function QRGenerator() {
         <div className="mb-3 grid gap-3">
           <input
             className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="SSID"
+            placeholder="Tên mạng (SSID)"
             value={ssid}
             onChange={(e) => setSsid(e.target.value)}
           />
           <input
             className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Password"
+            placeholder="Mật khẩu"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -90,7 +90,7 @@ export default function QRGenerator() {
           >
             <option value="WPA">WPA/WPA2</option>
             <option value="WEP">WEP</option>
-            <option value="nopass">No password</option>
+            <option value="nopass">Không mật khẩu</option>
           </select>
         </div>
       )}
@@ -99,7 +99,7 @@ export default function QRGenerator() {
         onClick={generate}
         className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        Generate QR
+        Tạo mã QR
       </button>
 
       {img && (
@@ -107,7 +107,7 @@ export default function QRGenerator() {
           <Image className="rounded-md border border-foreground/15" src={img} alt="qr" width={256} height={256} />
           <div>
             <a className="text-sm underline underline-offset-4 hover:text-blue-600" download="qr.png" href={img}>
-              Download PNG
+              Tải PNG
             </a>
           </div>
         </div>
