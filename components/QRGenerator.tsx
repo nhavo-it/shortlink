@@ -1,118 +1,98 @@
 "use client";
-import { useState } from "react";
-import QRCode from "qrcode";
-import Image from "next/image";
-
-type QRType = "URL" | "TEXT" | "WIFI";
-type EncryptionType = "WPA" | "WEP" | "nopass";
+import React, { useEffect, useRef, useState, ChangeEvent } from "react";
+import QRCodeStyling, { Options, FileExtension } from "qr-code-styling";
 
 export default function QRGenerator() {
-  const [type, setType] = useState<QRType>("URL");
-  const [payload, setPayload] = useState("");
-  const [ssid, setSsid] = useState("");
-  const [password, setPassword] = useState("");
-  const [encryption, setEncryption] = useState<EncryptionType>("WPA");
-  const [img, setImg] = useState<string>("");
+  const [options, setOptions] = useState<Options>({
+    width: 400,
+    height: 400,
+    type: "svg",
+    data: "http://qr-code-styling.com",
+    image:
+      "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+    margin: 10,
+    qrOptions: {
+      typeNumber: 0,
+      mode: "Byte",
+      errorCorrectionLevel: "Q",
+    },
+    imageOptions: {
+      hideBackgroundDots: true,
+      imageSize: 0.4,
+      margin: 20,
+      crossOrigin: "anonymous",
+      saveAsBlob: true,
+    },
+    dotsOptions: {
+      color: "#222222",
+    },
+    backgroundOptions: {
+      color: "#5FD4F3",
+    },
+  });
+  const [fileExt, setFileExt] = useState<FileExtension>("svg");
+  const [qrCode, setQrCode] = useState<QRCodeStyling>();
+  const ref = useRef<HTMLDivElement>(null);
 
-  async function generate() {
-    let data = "";
-    if (type === "URL") data = payload;
-    else if (type === "TEXT") data = payload;
-    else if (type === "WIFI") {
-      // WIFI format: WIFI:T:WPA;S:SSID;P:password;H:true;;
-      const H = "false";
-      data = `WIFI:T:${encryption};S:${ssid};P:${password};H:${H};;`;
+  useEffect(() => {
+    setQrCode(new QRCodeStyling(options));
+  }, []);
+
+  useEffect(() => {
+    if (ref.current) {
+      qrCode?.append(ref.current);
     }
-    try {
-      const url = await QRCode.toDataURL(data, { margin: 1 });
-      setImg(url);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  }, [qrCode, ref]);
+
+  useEffect(() => {
+    if (!qrCode) return;
+    qrCode?.update(options);
+  }, [qrCode, options]);
+
+  const onDataChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setOptions((options) => ({
+      ...options,
+      data: event.target.value,
+    }));
+  };
+
+  const onExtensionChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setFileExt(event.target.value as FileExtension);
+  };
+
+  const onDownloadClick = () => {
+    if (!qrCode) return;
+    qrCode.download({
+      extension: fileExt,
+    });
+  };
 
   return (
-    <div className="rounded-lg border border-foreground/15 bg-background p-4 shadow-sm">
-      <h3 className="mb-3 text-lg font-medium">Trình tạo mã QR</h3>
-      <div className="mb-3">
-        <label className="block text-sm mb-1">Loại</label>
+    <div>
+      <div
+        ref={ref}
+        className="flex items-center justify-center bg-white"
+      />
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center gap-3">
         <select
-          className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={type}
-          onChange={(e) => setType(e.target.value as QRType)}
+          onChange={onExtensionChange}
+          value={fileExt}
+          className="rounded-sm text-gray-700 border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400"
         >
-          <option value="URL">URL</option>
-          <option value="TEXT">Văn bản</option>
-          <option value="WIFI">WiFi</option>
+          <option value="svg">SVG</option>
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WEBP</option>
         </select>
+
+        <button
+          onClick={onDownloadClick}
+          className="w-full rounded-sm bg-green-500 px-4 py-2 text-lg text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-sm"
+        >
+          Tải xuống
+        </button>
       </div>
-
-      {type === "URL" && (
-        <div className="mb-3">
-          <input
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="https://..."
-            value={payload}
-            onChange={(e) => setPayload(e.target.value)}
-          />
-        </div>
-      )}
-
-      {type === "TEXT" && (
-        <div className="mb-3">
-          <textarea
-            className="w-full min-h-28 rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Nội dung văn bản"
-            value={payload}
-            onChange={(e) => setPayload(e.target.value)}
-          />
-        </div>
-      )}
-
-      {type === "WIFI" && (
-        <div className="mb-3 grid gap-3">
-          <input
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Tên mạng (SSID)"
-            value={ssid}
-            onChange={(e) => setSsid(e.target.value)}
-          />
-          <input
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Mật khẩu"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <select
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={encryption}
-            onChange={(e) => setEncryption(e.target.value as EncryptionType)}
-          >
-            <option value="WPA">WPA/WPA2</option>
-            <option value="WEP">WEP</option>
-            <option value="nopass">Không mật khẩu</option>
-          </select>
-        </div>
-      )}
-
-      <button
-        onClick={generate}
-        className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Tạo mã QR
-      </button>
-
-      {img && (
-        <div className="mt-4 space-y-2">
-          <Image className="rounded-md border border-foreground/15" src={img} alt="qr" width={256} height={256} />
-          <div>
-            <a className="text-sm underline underline-offset-4 hover:text-blue-600" download="qr.png" href={img}>
-              Tải PNG
-            </a>
-          </div>
-        </div>
-      )}
     </div>
-    
   );
 }
