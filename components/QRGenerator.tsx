@@ -8,8 +8,6 @@ export default function QRGenerator() {
     height: 400,
     type: "svg",
     data: "http://qr-code-styling.com",
-    image:
-      "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
     margin: 10,
     qrOptions: {
       typeNumber: 0,
@@ -27,7 +25,7 @@ export default function QRGenerator() {
       color: "#222222",
     },
     backgroundOptions: {
-      color: "#5FD4F3",
+      color: "#FFF",
     },
   });
   const [fileExt, setFileExt] = useState<FileExtension>("svg");
@@ -74,7 +72,7 @@ export default function QRGenerator() {
         className="flex items-center justify-center bg-white"
       />
 
-      <div className="mt-6 flex flex-col sm:flex-row items-center gap-3">
+      <div className="mt-6 flex items-center gap-3">
         <select
           onChange={onExtensionChange}
           value={fileExt}

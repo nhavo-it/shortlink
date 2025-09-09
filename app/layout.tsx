@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Short & QR",
-  description: "Tạo liên kết rút gọn và sinh mã QR nhanh chóng",
+  description:
+    "Short & QR giúp bạn rút gọn liên kết dài thành link ngắn gọn, dễ nhớ và đồng thời sinh mã QR chỉ với một thao tác. Ứng dụng hỗ trợ chia sẻ nhanh chóng trên mạng xã hội, tài liệu in ấn, poster, danh thiếp và nhiều trường hợp khác, giúp tối ưu trải nghiệm chia sẻ thông tin tiện lợi, chuyên nghiệp và hiệu quả.",
 };
 
 export default function RootLayout({

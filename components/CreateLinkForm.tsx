@@ -37,7 +37,7 @@ export default function CreateLinkForm() {
   }
 
   return (
-    <form onSubmit={handleCreate} className="rounded-lg border border-foreground/15 bg-background p-4 space-y-3 shadow-sm">
+    <form onSubmit={handleCreate} className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2">
         <input
           className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
