@@ -22,13 +22,13 @@ export default function Home() {
   const [active, setActive] = useState("SHORT");
   return (
     <main className="mt-10 rounded-md bg-white shadow-md">
-      <nav className="flex flex-wrap items-center gap-4 bg-purple-900 text-white p-2">
+      <nav className="flex flex-wrap items-center gap-4 bg-purple-900 text-white">
         {menuItems.map((item) => (
           <button
             key={item}
             onClick={() => setActive(item)}
-            className={`px-3 py-1 rounded font-bold ${
-              active === item ? "bg-white text-purple-900" : "text-white"
+            className={`px-3 py-1 font-bold ${
+              active === item ? "bg-gray-100 text-purple-900" : "text-white"
             }`}
           >
             {item}
