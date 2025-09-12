@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
-export default function CreateLinkForm() {
+export default function ShortForm({ setValue }: { setValue: (val: string) => void }) {
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("");

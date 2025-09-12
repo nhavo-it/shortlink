@@ -2,12 +2,12 @@
 import React, { useEffect, useRef, useState, ChangeEvent } from "react";
 import QRCodeStyling, { Options, FileExtension } from "qr-code-styling";
 
-export default function QRGenerator() {
+export default function QRGenerator({ value }: { value: string }) {
   const [options, setOptions] = useState<Options>({
     width: 400,
     height: 400,
     type: "svg",
-    data: "http://qr-code-styling.com",
+    data: value || " ",
     margin: 10,
     qrOptions: {
       typeNumber: 0,
@@ -28,31 +28,44 @@ export default function QRGenerator() {
       color: "#FFF",
     },
   });
+
   const [fileExt, setFileExt] = useState<FileExtension>("svg");
   const [qrCode, setQrCode] = useState<QRCodeStyling>();
   const ref = useRef<HTMLDivElement>(null);
 
+  // Khởi tạo QRCodeStyling
   useEffect(() => {
-    setQrCode(new QRCodeStyling(options));
+    const qr = new QRCodeStyling(options);
+    setQrCode(qr);
   }, []);
 
+  // Append QR vào DOM
   useEffect(() => {
-    if (ref.current) {
-      qrCode?.append(ref.current);
+    if (ref.current && qrCode) {
+      qrCode.append(ref.current);
     }
-  }, [qrCode, ref]);
+  }, [qrCode]);
 
+  // Cập nhật QR code khi options đổi
   useEffect(() => {
-    if (!qrCode) return;
-    qrCode?.update(options);
+    if (qrCode) {
+      qrCode.update(options);
+    }
   }, [qrCode, options]);
 
-  const onDataChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setOptions((options) => ({
-      ...options,
-      data: event.target.value,
-    }));
-  };
+  // 🚀 Debounce update khi value đổi
+  useEffect(() => {
+    if (!value) return;
+
+    const handler = setTimeout(() => {
+      setOptions((prev) => ({
+        ...prev,
+        data: value,
+      }));
+    }, 500); // ⏱ 300ms sau khi ngừng gõ
+
+    return () => clearTimeout(handler); // cleanup nếu user tiếp tục gõ
+  }, [value]);
 
   const onExtensionChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setFileExt(event.target.value as FileExtension);
@@ -67,10 +80,7 @@ export default function QRGenerator() {
 
   return (
     <div>
-      <div
-        ref={ref}
-        className="flex items-center justify-center bg-white"
-      />
+      <div ref={ref} className="flex items-center justify-center bg-white" />
 
       <div className="mt-6 flex items-center gap-3">
         <select
