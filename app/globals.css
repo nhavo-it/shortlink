@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #5357A6;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #5357A6;
     --foreground: #ededed;
   }
 }
@@ -23,11 +23,21 @@
 input,
 textarea,
 select {
-  @apply w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700 
-         shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400 outline-none;
+  @apply w-full rounded border border-gray-300 bg-white px-3 py-2 text-gray-700 
+         shadow-sm focus:border-blue-500 text-sm focus:ring-2 focus:ring-blue-400 outline-none;
 }
 
 /* Riêng textarea nên cho resize hợp lý */
 textarea {
   @apply resize-y min-h-[100px];
+}
+
+/* Ẩn scrollbar nhưng vẫn cuộn được */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE và Edge */
+  scrollbar-width: none; /* Firefox */
 }

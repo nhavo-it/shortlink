@@ -25,14 +25,14 @@ const menuItems = [
   "FACEBOOK",
   "TWITTER",
   "YOUTUBE",
-  "APP STORE"
+  "APP STORE",
 ];
 
 export default function Home() {
   const [active, setActive] = useState("SHORT");
   const [qrValue, setQrValue] = useState("");
 
-const renderForm = () => {
+  const renderForm = () => {
     switch (active) {
       case "SHORT":
         return <ShortForm setValue={setQrValue} />;
@@ -65,13 +65,13 @@ const renderForm = () => {
 
   return (
     <main className="mt-10 rounded-md bg-white shadow-md">
-      <nav className="flex flex-wrap items-center gap-4 bg-purple-900 text-white">
+      <nav className="flex flex-nowrap items-center gap-4 bg-background text-white overflow-x-auto no-scrollbar">
         {menuItems.map((item) => (
           <button
             key={item}
             onClick={() => setActive(item)}
-            className={`px-3 py-1 font-bold ${
-              active === item ? "bg-gray-100 text-purple-900" : "text-white"
+            className={`px-3 py-1 font-bold shrink-0 ${
+              active === item ? "bg-gray-100 text-background" : "text-white"
             }`}
           >
             {item}

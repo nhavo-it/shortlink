@@ -14,7 +14,6 @@ export default function SmsForm({ setValue }: { setValue: (val: string) => void 
       <input
         type="tel"
         placeholder="Số điện thoại"
-        className="w-full rounded-md border px-3 py-2"
         value={phone}
         onChange={(e) => {
           setPhone(e.target.value);
@@ -23,7 +22,6 @@ export default function SmsForm({ setValue }: { setValue: (val: string) => void 
       />
       <textarea
         placeholder="Tin nhắn"
-        className="w-full rounded-md border px-3 py-2"
         value={msg}
         onChange={(e) => {
           setMsg(e.target.value);

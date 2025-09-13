@@ -16,7 +16,6 @@ export default function WifiForm({ setValue }: { setValue: (val: string) => void
       <input
         type="text"
         placeholder="SSID"
-        className="w-full rounded-md border px-3 py-2"
         value={ssid}
         onChange={(e) => {
           setSsid(e.target.value);
@@ -26,7 +25,6 @@ export default function WifiForm({ setValue }: { setValue: (val: string) => void
       <input
         type="password"
         placeholder="Password"
-        className="w-full rounded-md border px-3 py-2"
         value={pass}
         onChange={(e) => {
           setPass(e.target.value);

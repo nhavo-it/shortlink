@@ -4,8 +4,8 @@ import QRCodeStyling, { Options, FileExtension } from "qr-code-styling";
 
 export default function QRGenerator({ value }: { value: string }) {
   const [options, setOptions] = useState<Options>({
-    width: 400,
-    height: 400,
+    width: 380,
+    height: 380,
     type: "svg",
     data: value || " ",
     margin: 10,
@@ -86,7 +86,7 @@ export default function QRGenerator({ value }: { value: string }) {
         <select
           onChange={onExtensionChange}
           value={fileExt}
-          className="rounded-sm text-gray-700 border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400"
+          className="w-28 rounded-sm text-gray-700 border border-gray-300 px-2 py-1 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400"
         >
           <option value="svg">SVG</option>
           <option value="png">PNG</option>
@@ -96,9 +96,9 @@ export default function QRGenerator({ value }: { value: string }) {
 
         <button
           onClick={onDownloadClick}
-          className="w-full rounded-sm bg-green-500 px-4 py-2 text-lg text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-sm"
+          className="w-full rounded-sm bg-green-500 px-4 py-2 text-lg font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-sm"
         >
-          Tải xuống
+          TẢI XUỐNG
         </button>
       </div>
     </div>

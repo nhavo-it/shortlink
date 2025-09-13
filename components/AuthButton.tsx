@@ -39,19 +39,19 @@ export default function AuthButton() {
     );
   return (
     <div className="flex items-center gap-3">
-      <div className="hidden sm:block text-sm">
+      <div className="hidden sm:block text-sm text-foreground">
         Chào, <span className="font-medium">Võ Văn Nhã</span>
       </div>
 
       <Link
         href="/my-qr"
-        className="inline-flex items-center rounded-md border border-blue-500 bg-blue-50 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="inline-flex items-center rounded border text-background border-blue-500 bg-blue-50 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         Mã QR của tôi
       </Link>
       <button
         onClick={signOut}
-        className="inline-flex items-center rounded-md border border-foreground/20 bg-transparent px-3 py-1.5 text-sm hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/30"
+        className="inline-flex items-center rounded border border-foreground bg-transparent px-3 py-1.5 text-sm text-foreground hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/30"
       >
         Đăng xuất
       </button>

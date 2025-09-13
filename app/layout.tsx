@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Short & QR",
@@ -25,9 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className="bg-purple-900">
+    <html lang="vi" className="bg-background">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh font-sans bg-purple-900 text-white`}
+        className={`${inter.variable} antialiased min-h-dvh font-sans`}
       >
         <div className="container mx-auto p-3">
           <Header />

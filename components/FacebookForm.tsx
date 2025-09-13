@@ -14,8 +14,6 @@ export default function FacebookForm({ setValue }: { setValue: (val: string) => 
           setLink(val);
           setValue(val); // gửi giá trị cho QRGenerator
         }}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </form>
   );

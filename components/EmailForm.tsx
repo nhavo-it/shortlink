@@ -24,8 +24,6 @@ export default function EmailForm({ setValue }: { setValue: (val: string) => voi
           setEmail(e.target.value);
           updateValue(e.target.value, subject, body);
         }}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <input
@@ -36,8 +34,6 @@ export default function EmailForm({ setValue }: { setValue: (val: string) => voi
           setSubject(e.target.value);
           updateValue(email, e.target.value, body);
         }}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <textarea
@@ -48,8 +44,6 @@ export default function EmailForm({ setValue }: { setValue: (val: string) => voi
           setBody(e.target.value);
           updateValue(email, subject, e.target.value);
         }}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm 
-                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </form>
   );

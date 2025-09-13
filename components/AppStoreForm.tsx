@@ -5,7 +5,6 @@ export default function AppStoreForm({ setValue }: { setValue: (val: string) => 
         <input
           type="url"
           placeholder="Link App Store / Google Play"
-          className="input"
         />
       </form>
     );

@@ -40,14 +40,12 @@ export default function ShortForm({ setValue }: { setValue: (val: string) => voi
     <form onSubmit={handleCreate} className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2">
         <input
-          className="w-full rounded-md border border-foreground/20 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
         <input
-          className="w-full rounded-md border border-foreground/20 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="tiêu đề (không bắt buộc)"
+          placeholder="Tiêu đề (không bắt buộc)"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />

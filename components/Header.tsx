@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <div className="flex items-center justify-between">
-      <Link href="/" className="text-3xl font-semibold tracking-tight hover:text-blue-600 transition-colors">
+      <Link href="/" className="text-3xl font-semibold tracking-tight text-white transition-colors">
         <h1 className="m-0">
           <span className="hidden sm:inline">Short & QR</span>
           <span className="inline sm:hidden">S&QR</span>
