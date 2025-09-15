@@ -122,7 +122,7 @@ export default function LinkList() {
 
             {/* Thông tin liên kết */}
             <div className="flex-1 md:pr-4">
-              <div className="font-medium">{l.title ?? "(Không tiêu đề)"}</div>
+              <div className="font-medium">{l.title?.trim() || "(Không tiêu đề)"}</div>
 
               <div className="text-sm mt-1">
                 Liên kết rút gọn:{" "}
