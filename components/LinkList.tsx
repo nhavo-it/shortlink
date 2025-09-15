@@ -5,13 +5,13 @@ import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 
 type Link = {
-  id: number;              // vì serial → number
-  slug: string;            // unique short slug
-  url: string;             // full URL gốc
-  title?: string | null;   // optional
-  owner_id: string;        // user id từ Supabase
-  created_at: Date;        // timestamp
-  clicks: number;          // đếm số lần click
+  id: number;          // serial → number
+  slug: string;        // short slug
+  url: string;         // full URL gốc
+  title?: string | null;
+  owner_id: string;    // user id Supabase
+  created_at: Date;    // timestamp
+  clicks: number;      // lượt click
 };
 
 export default function LinkList() {
@@ -23,6 +23,7 @@ export default function LinkList() {
     async function load() {
       const { data } = await supabase.auth.getSession();
       const token = data.session?.access_token;
+
       if (!token) {
         setLinks([]);
         setLoading(false);
@@ -54,9 +55,45 @@ export default function LinkList() {
     }
   };
 
-  if (loading) return <div>Đang tải...</div>;
-  if (!links.length)
-    return <div>Chưa có liên kết nào (hãy đăng nhập và tạo mới).</div>;
+  // Loading UI
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-4 border-white border-t-transparent mx-auto mb-3" />
+          <p className="text-white">Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state
+  if (!links.length) {
+    return (
+      <div className="flex items-center justify-center py-16">
+        <div className="text-center text-gray-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-12 w-12 mx-auto mb-3 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m4 0V9a2 2 0 00-2-2H7a2 2 0 00-2 2v8m10 4H9a2 2 0 01-2-2v-2h10v2a2 2 0 01-2 2z"
+            />
+          </svg>
+          <p className="font-medium">Chưa có liên kết nào</p>
+          <p className="text-sm text-gray-500">
+            Hãy đăng nhập và tạo mới để bắt đầu.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ul className="space-y-3">
@@ -68,10 +105,23 @@ export default function LinkList() {
         return (
           <li
             key={l.id}
-            className="flex justify-between items-start rounded-lg border border-foreground/15 bg-foreground p-4 shadow-sm"
+            className="flex flex-col md:flex-row md:justify-between md:items-start rounded-lg border border-foreground/15 bg-foreground p-4 shadow-sm"
           >
-            {/* Bên trái: thông tin liên kết */}
-            <div className="flex-1 pr-4">
+            {/* QR code (trên mobile: hiển thị trên, desktop: bên phải) */}
+            <div className="flex-shrink-0 mb-3 md:mb-0 md:order-last">
+              <Image
+                className="h-24 w-24 object-contain mx-auto md:mx-0"
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
+                  shortUrl
+                )}`}
+                alt="qr"
+                width={96}
+                height={96}
+              />
+            </div>
+
+            {/* Thông tin liên kết */}
+            <div className="flex-1 md:pr-4">
               <div className="font-medium">{l.title ?? "(Không tiêu đề)"}</div>
 
               <div className="text-sm mt-1">
@@ -104,20 +154,9 @@ export default function LinkList() {
                 </a>
               </div>
 
-              <div className="mt-1 text-xs">Lượt xem: {l.clicks}</div>
-            </div>
-
-            {/* Bên phải: QR code */}
-            <div className="flex-shrink-0">
-              <Image
-                className="h-24 w-24 object-contain"
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-                  shortUrl
-                )}`}
-                alt="qr"
-                width={96}
-                height={96}
-              />
+              <div className="mt-1 text-xs text-gray-500">
+                Lượt xem: {l.clicks}
+              </div>
             </div>
           </li>
         );

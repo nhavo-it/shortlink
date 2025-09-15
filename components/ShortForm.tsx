@@ -32,7 +32,7 @@ export default function ShortForm({ setValue }: { setValue: (val: string) => voi
       window.location.reload();
     } else {
       const err = await res.json();
-      setStatus("Lỗi: " + (err?.error ?? "không xác định"));
+      setStatus("Lỗi " + (err?.error ?? "không xác định"));
     }
   }
 
@@ -40,7 +40,7 @@ export default function ShortForm({ setValue }: { setValue: (val: string) => voi
     <form onSubmit={handleCreate} className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2">
         <input
-          placeholder="https://example.com"
+          placeholder="https://lnk.bzo.vn"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
@@ -53,7 +53,7 @@ export default function ShortForm({ setValue }: { setValue: (val: string) => voi
       <div className="flex items-center justify-between gap-3">
         <button
           type="submit"
-          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="inline-flex items-center rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Tạo liên kết rút gọn
         </button>

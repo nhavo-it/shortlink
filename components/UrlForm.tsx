@@ -10,7 +10,7 @@ export default function UrlForm({
     <form className="space-y-3">
       <input
         type="text"
-        placeholder="https://example.com"
+        placeholder="https://lnk.bzo.vn"
         value={url}
         onChange={(e) => {
           const newVal = e.target.value;
