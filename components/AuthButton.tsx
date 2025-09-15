@@ -32,7 +32,7 @@ export default function AuthButton() {
     return (
       <button
         onClick={signIn}
-        className="inline-flex items-center gap-2 rounded text-background bg-foreground px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="inline-flex items-center gap-2 rounded text-background bg-foreground px-4 py-2 text-sm font-medium shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Đăng nhập
       </button>
